@@ -6,7 +6,22 @@ namespace cadastro_clientes
 
         public string RazaoSocial { get; set; }
 
-        public override void PagarImposto(float salario){}        
+    
+        public override double PagarImposto(float rendimentos)
+        {
+            if (rendimentos <= 5000)
+            {
+                return (rendimentos/100) * 6;
+
+            }else if (rendimentos > 5000 && rendimentos <=10000)
+            {
+                return (rendimentos )/100 * 8;
+
+            }else 
+            {
+                return (rendimentos/100) * 10;
+            }
+        }        
         
         
         public bool ValidarCNPJ (string cnpj){

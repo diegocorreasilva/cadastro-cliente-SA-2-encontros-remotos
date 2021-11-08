@@ -6,11 +6,13 @@ namespace cadastro_clientes
 
         public Endereco endereco { get; set; }
 
-        public abstract void PagarImposto(float salario);
+        public float rendimentos{get; set;}
+
+        public abstract double PagarImposto(float salario);
         
         
         
         
-        
+         
     }
 }

@@ -8,9 +8,20 @@ namespace cadastro_clientes
 
         public DateTime datanascimento { get; set; }
 
-        public override void PagarImposto(float salario)
+        public override double PagarImposto(float rendimentos)
         {
+            if (rendimentos <= 1500)
+            {
+                return 0;
 
+            }else if (rendimentos > 1500 && rendimentos <=5000)
+            {
+                return (rendimentos )/100 * 3;
+
+            }else 
+            {
+                return (rendimentos/100) * 5;
+            }
         }
 
         public bool Validardatanasc(DateTime datanasc)

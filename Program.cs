@@ -1,16 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace cadastro_clientes
 {
     class Program
     {
-
         static void Main(string[] args)
-
         {
+            //criar a lista aqui
+
+
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine(@$"
@@ -32,9 +33,14 @@ namespace cadastro_clientes
 ==========================================
 |           Escolha uma opçao            |
 |----------------------------------------|
-|          1 - Pessoa Fisica             |
-|          2 - Pessoa Juridica           |
+|          1 - Add Pessoa Fisica         |
+|          2 - visualizar PF             |
+|          3 - remover  PF               | 
 |                                        |
+|          4 - Add Pessoa Juridica       |
+|          5 - visualizar PJ             |
+|          6 - remover PJ                |
+|                                        | 
 |          0 - Sair                      |
 ==========================================
 ");
@@ -46,16 +52,43 @@ namespace cadastro_clientes
                         Pessoafisica pf = new Pessoafisica();
                         Pessoafisica npf = new Pessoafisica();
                         Endereco endpf = new Endereco();
+         
                         
-                        
-                        endpf.Logradouro = "rua X";
-                        endpf.complemento = "casa 2";
-                        endpf.enderecomercial = false;
 
-                        npf.endereco = endpf; 
-                        npf.cpf = "123.456.789-01";
-                        npf.nome = "chico";
-                        npf.datanascimento = new DateTime(2000,06,23);
+                        Console.WriteLine($"digite se Nome");
+                        npf.nome = Console.ReadLine();
+                        Console.WriteLine($"digite seu CPF");
+                        npf.cpf = Console.ReadLine();
+
+                        // endereço pessoa fisica inicio
+                        Console.Write($"digite o logradouro ");                        
+                        endpf.Logradouro = Console.ReadLine();                        
+                        Console.Write($"digite o numero ");
+                        endpf.numero = int.Parse(Console.ReadLine());
+                        Console.Write($"digite o complemento ");
+                        endpf.complemento = Console.ReadLine();
+                        Console.WriteLine($"endereço comercial ? SIM ou NAO");
+                        endpf.enderecomercial = bool.Parse(Console.ReadLine());
+                                  
+                        // fim endereco pessoa fisica
+                        // Nova pessoa fisica
+                        npf.endereco = endpf;                           
+
+                        Console.WriteLine($"digite o valor de sua renda mensal");
+                        npf.rendimentos = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine(@$"rua: {npf.endereco.Logradouro},{npf.endereco.numero}");
+                        
+                        // data de nascimento
+                        Console.WriteLine($"digite o Dia de seu nascimento");
+                        var Dia = int.Parse(Console.ReadLine());                        
+                        Console.WriteLine($"digite o Mes de seu nascimento");
+                        var Mes = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"digite o Ano de seu nascimento");
+                        var Ano = int.Parse(Console.ReadLine());
+                        // fim data nascimento
+
+                        npf.datanascimento = new DateTime(Ano, Mes, Dia);
                         
                         bool idadevalida = pf.Validardatanasc(npf.datanascimento);
 
@@ -68,21 +101,71 @@ namespace cadastro_clientes
                         {
                             Console.WriteLine($"Cadastro de menores de 18 anos, nao permitido!");
                         }
-                        break;
+                        
+                        Console.Write(@$"total de imposto a pagar R$ {pf.PagarImposto(npf.rendimentos)},00");
+                       // Console.WriteLine(pf.PagarImposto(npf.rendimentos));
 
-                    case "2":
+                        break;
+                    
+                    // visualiza a pessoa cadastrada
+
+                    // case "2":
+                    //         foreach(var item in listapf)
+                    //         {
+                                
+                    //             Console.WriteLine($"{item.nome},{item.cpf},{item.endereco.numero}");
+
+                    //         }
+                    //     break;
+
+                    // case "3":
+                    //     Console.WriteLine($"cpf remover");
+                    //     string CPFs = Console.ReadLine();
+                    //     // listapf é a lista que tem que ser criada la em cima
+                        
+                    //     Pessoafisica pessoaprocurada = listapf.find(item => item.cpf == CPFs);
+                    //     if (pessoaprocurada = null)
+                    //     {
+                    //        listapf.remove(pessoaprocurada); 
+                    //        Console.WriteLine($"cadastro removido");
+                           
+                    //     }else
+                    //     {
+                    //         Console.WriteLine($"CPf nao encontrado");
+                            
+                    //     }
+                        
+                    //    break;
+
+
+                    /// 
+                    /// 
+                    /// 
+                
+                  
+
+                    case "4":
                         PessoaJuridica pj = new PessoaJuridica();
                         PessoaJuridica npj = new PessoaJuridica();
                         Endereco endpj = new Endereco();
-
-                        endpj.Logradouro = "rua cajá";
-                        endpj.numero = 64;
-                        endpj.complemento = "loja 2";
-                        endpj.enderecomercial = true;
-
+                        
+                        Console.WriteLine($"Razao Social:");                        
+                        npj.RazaoSocial = Console.ReadLine();
+                        Console.WriteLine($"digite seu CNPJ:");                        
+                        npj.cnpj = Console.ReadLine();
+                        Console.WriteLine($"informe seus rendimentos");                        
+                        npj.rendimentos = float.Parse(Console.ReadLine());
+                        Console.WriteLine($"logradouro");                        
+                        endpj.Logradouro = Console.ReadLine();
+                        Console.WriteLine($"numero");
+                        endpj.numero = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Complemento");
+                        endpj.complemento = Console.ReadLine();
+                        Console.WriteLine($"endereço comercial ? SIM ou NAO");
+                        endpj.enderecomercial = bool.Parse(Console.ReadLine());
+                        
                         npj.endereco = endpj;
-                        npj.RazaoSocial = "xita moda LDTA";
-                        npj.cnpj = "12345678900001";
+                        
 
                         if (pj.ValidarCNPJ(npj.cnpj))
                         {
@@ -95,6 +178,8 @@ namespace cadastro_clientes
                             Console.WriteLine($"CNPJ INVALIDO!");
 
                         }
+                        Console.Write(@$"total de imposto a pagar R$ {pj.PagarImposto(npj.rendimentos)},00");
+
                         break;
 
                     case "0":
