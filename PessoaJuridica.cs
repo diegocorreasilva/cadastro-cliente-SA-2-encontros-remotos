@@ -11,6 +11,7 @@ namespace cadastro_clientes
         {
             if (rendimentos <= 5000)
             {
+                
                 return (rendimentos/100) * 6;
 
             }else if (rendimentos > 5000 && rendimentos <=10000)
@@ -19,7 +20,7 @@ namespace cadastro_clientes
 
             }else 
             {
-                return (rendimentos/100) * 10;
+                return (rendimentos/100) * 5;
             }
         }        
         
