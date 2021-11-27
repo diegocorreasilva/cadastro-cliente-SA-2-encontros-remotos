@@ -74,6 +74,7 @@ namespace cadastro_clientes
                 listaPf.Add(cadaPf);
             }
             return listaPf;
+            
         }
 
     }

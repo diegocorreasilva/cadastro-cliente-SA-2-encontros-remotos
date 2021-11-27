@@ -22,7 +22,6 @@ namespace cadastro_clientes
                 Directory.CreateDirectory(pasta);
             }
 
-            
             if (!File.Exists(caminho))
             {
                 File.Create(caminho);
