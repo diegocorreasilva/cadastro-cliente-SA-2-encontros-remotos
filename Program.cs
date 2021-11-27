@@ -82,7 +82,7 @@ namespace cadastro_clientes
                         Console.WriteLine($"digite o valor de sua renda mensal");
                         npf.rendimentos = int.Parse(Console.ReadLine());
 
-                        Console.WriteLine(@$"rua: {npf.endereco.Logradouro},{npf.endereco.numero}");
+                        //Console.WriteLine(@$"rua: {npf.endereco.Logradouro},{npf.endereco.numero}");
                         
                         
                         Console.WriteLine($"digite o Dia de seu nascimento");
@@ -107,11 +107,30 @@ namespace cadastro_clientes
                         {
                             Console.WriteLine($"Cadastro de menores de 18 anos, nao permitido!");
                         }
+
+                        using (StreamWriter sw = new StreamWriter($"{npf.nome}.txt"))
+                        {
+                            sw.Write($"{npf.nome} | {npf.cpf}");
+                        }
+
+                        //Para ler o arquivo.txt
+
+                        using (StreamReader sr = new StreamReader($"{npf.nome}.txt"))
+                        {
+                            string linha;
+
+                            
+                            while ((linha = sr.ReadLine()) != null)
+                            {
+                                Console.WriteLine($"{linha}");
+                            }
+                        }
+
                         
                         break;
                     
                     // Listar Pessoa fisica
-                    case "2":
+                    case "2":                        
                             foreach(Pessoafisica item in listpf)
                             {
                                 
@@ -119,6 +138,7 @@ namespace cadastro_clientes
 
                             }
                         break;
+
                     // remover pessoa fisica
                     case "3":
                         Console.WriteLine($"cpf a remover");
@@ -142,11 +162,16 @@ namespace cadastro_clientes
                         PessoaJuridica pj = new PessoaJuridica();
                         PessoaJuridica npj = new PessoaJuridica();
                         Endereco endpj = new Endereco();
-                        
-                        Console.WriteLine($"Razao Social:");                        
+
+                        Console.WriteLine("digite seu nome: ");
+                        npj.nome  = Console.ReadLine();
+
+                        Console.WriteLine($"Razao Social:");   
                         npj.RazaoSocial = Console.ReadLine();
+                       
                         Console.WriteLine($"digite seu CNPJ:");                        
                         npj.cnpj = Console.ReadLine();
+                       
                         Console.WriteLine($"informe seus rendimentos");                        
                         npj.rendimentos = float.Parse(Console.ReadLine());
 
@@ -185,8 +210,40 @@ namespace cadastro_clientes
                             Console.WriteLine($"CNPJ INVALIDO!");
 
                         }
-                        
 
+                        // criar arquivo txt com o nome de usuario cadastrado
+                        using (StreamWriter sw = new StreamWriter($"{npj.nome}.txt"))
+                        {
+                            sw.Write($"{npj.nome} | {npj.cnpj}");
+                        }
+
+                        //Para ler o arquivo.txt
+
+                        using (StreamReader sr = new StreamReader($"{npj.nome}.txt"))
+                        {
+                            string linha;
+
+                            
+                            while ((linha = sr.ReadLine()) != null)
+                            {
+                                Console.WriteLine($"{linha}");
+                            }
+                        }
+                        // nao esta acabado!!!
+                        // pj.VerificarArquivo(pj.caminho);
+                        // pj.Inserir(npj);
+
+                        // if (pj.Ler().Count > 0)
+                        // {
+                        //     foreach (var item in pj.Ler())
+                        //     {
+                        //         Console.WriteLine($"Nome: {item.nome}  - CNPJ: {item.cnpj} - Razao social: {item.RazaoSocial}");
+                        //     }
+                        // }
+                        // else
+                        // {
+                        //     Console.WriteLine($"Lista Vazia");
+                        // }
                         break;
 
                     case "5":
